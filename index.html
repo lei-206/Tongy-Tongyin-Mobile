@@ -1,23 +1,53 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>“童语同音”学前儿童普通话师资培训 - 报名入口</title>
-    <script type="module" src="/style/main.js"></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>童语同音 学前儿童普通话师资培训</title>
+    <meta name="viewport"
+        content="width=device-width,minimum-scale=1,maximum-scale=1,initial-scale=1,user-scalable=no" />
+    <meta name="description" content="“童语同音”学前儿童普通话师资培训移动端平台，包含报名入口、课程学习计划表、信息登记与培训状态展示等功能。">
+    <meta property="og:title" content="童语同音 学前儿童普通话师资培训">
+    <meta property="og:description" content="“童语同音”学前儿童普通话师资培训移动端平台，包含报名入口、课程学习计划表、信息登记与培训状态展示等功能。">
+    <link href="style/index.css" rel="stylesheet" type="text/css">
+    <link href="style/common.scss" rel="stylesheet" type="text/css">
 </head>
-<body class="welcome-page">
-    <div class="welcome-container">
-        <img src="style/img/title-welcome.png" alt="欢迎进入童语同音学前儿童普通话师资培训线上培训平台" class="title-image">
-        <a href="register.html" class="btn-register-wrap">
-            <img src="style/img/btn-baoming.png" alt="开始报名" class="btn-register-img">
-        </a>
+
+<body>
+    <div id="app" v-cloak class="welcome-page">
+        <div class="welcome-container">
+            <img src="style/img/title-welcome-mobile.png" alt="欢迎进入童语同音学前儿童普通话师资培训线上培训平台" class="title-image">
+            <a href="register.html" class="btn-register-wrap">
+                <img src="style/img/btn-baoming.png" alt="开始报名" class="btn-register-img">
+            </a>
+            <div style="margin-top: 18px; text-align: center;">
+                <a href="plan.html" style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 22px; background: rgba(255, 255, 255, 0.92); border: 1.5px solid #00a86b; color: #008f5a; border-radius: 999px; text-decoration: none; font-size: 15px; font-weight: 600; box-shadow: 0 4px 12px rgba(0, 168, 107, 0.18);">
+                    <span>进入课程学习计划表</span>
+                    <span style="font-size: 18px;">&rsaquo;</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- <footer class="page-footer">
+            <p>网络教育数字化学习资源中心 版权所有</p>
+            <p>技术支持：国开泛在（北京）教育科技有限公司</p>
+            <p>ICP备xxxxxxxx号 公安网备xxxxxx号</p>
+        </footer> -->
     </div>
 
-    <footer class="page-footer">
-        <p>网络教育数字化学习资源中心 版权所有</p>
-        <p>技术支持：国开泛在（北京）教育科技有限公司</p>
-        <p>ICP备xxxxxxxx号 公安网备xxxxxx号</p>
-    </footer>
+    <script src="style/vue.js"></script>
+    <script src="style/vant.min.js"></script>
+    <script>
+        const { createApp } = Vue;
+        const app = createApp({
+            setup() {
+                return {};
+            }
+        });
+        app.use(vant);
+        app.mount('#app');
+    </script>
 </body>
+
 </html>

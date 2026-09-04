@@ -1,0 +1,6 @@
+{
+  "name": "童语同音 学前儿童普通话师资培训",
+  "description": "“童语同音”学前儿童普通话师资培训移动端平台，包含报名入口、报名状态页、课程学习计划表（日历打卡、作业提交、普通话终测）、信息登记与班级选择等功能。",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
