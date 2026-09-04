@@ -80,7 +80,7 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", "Microsoft YaHei", sans-serif;
     color: $text-color;
     line-height: 1.6;
-    background: #d6f6e8 url("/style/img/mobile-bodyBg.jpg") no-repeat center top;
+    background: #d6f6e8 url("img/mobile-bodyBg.jpg") no-repeat center top;
     background-size: 100% 100%;
     min-height: 100vh;
     margin: 0 auto;
@@ -1908,7 +1908,7 @@ div.swal2-container button.swal2-close {
 .plan-banner-card {
     width: 100%;
     min-height: 74px;
-    background: url("/style/img/bg-schedule.png") no-repeat center center / 100% 100%;
+    background: url("img/bg-schedule.png") no-repeat center center / 100% 100%;
     border-radius: 14px;
     display: flex;
     align-items: center;
@@ -1979,7 +1979,7 @@ div.swal2-container button.swal2-close {
 // 日历容器主体卡片 (使用 calendar-bg.png 作为背景)
 .plan-calendar-card {
     width: 100%;
-    background: url("/style/img/calendar-bg.png") no-repeat center top / 100% 100%;
+    background: url("img/calendar-bg.png") no-repeat center top / 100% 100%;
     border: none;
     border-radius: 16px;
     box-shadow: 0 8px 24px rgba(0, 140, 90, 0.08);
@@ -2127,7 +2127,7 @@ div.swal2-container button.swal2-close {
 
     .task-card-item {
         position: relative;
-        background: url("/style/img/calendar-btn-bg01.png") no-repeat center center / 100% 100%;
+        background: url("img/calendar-btn-bg01.png") no-repeat center center / 100% 100%;
         border: none;
         border-radius: 12px;
         min-height: 64px;
