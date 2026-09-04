@@ -25,15 +25,10 @@
                 <div class="pill-steps-track">
                     <template v-for="(step, index) in steps" :key="step.num">
                         <div v-if="index > 0" class="pill-step-line" :class="{ active: currentStep >= step.num }"></div>
-                        <div
-                            class="pill-step-item"
-                            :class="{
+                        <div class="pill-step-item" :class="{
                                 active: currentStep === step.num,
                                 finished: currentStep > step.num
-                            }"
-                            :ref="el => { if (el) stepItemRefs[index] = el; }"
-                            @click="handleStepClick(step.num)"
-                        >
+                            }" :ref="el => { if (el) stepItemRefs[index] = el; }" @click="handleStepClick(step.num)">
                             <span class="pill-step-badge">{{ step.num }}</span>
                             <span class="pill-step-text">{{ step.label }}</span>
                         </div>
@@ -46,84 +41,36 @@
 
                 <!-- 步骤1：填写基本信息 -->
                 <section class="step-content" :class="{ active: currentStep === 1 }" id="step1">
-                    <van-form class="register-vant-form" id="formStep1" @submit="submitStep1">
+                    <van-form class="register-vant-form" id="formStep1" autocomplete="off" @submit="submitStep1">
                         <van-cell-group inset class="register-cell-group">
-                            <van-field
-                                v-model.trim="formData.name"
-                                name="name"
-                                label="姓名"
-                                placeholder="请填写与身份证上一致的汉字姓名"
-                                required
-                                :rules="[{ required: true, message: '请填写姓名' }]"
-                            ></van-field>
+                            <van-field v-model.trim="formData.name" name="name" label="姓名" placeholder="请填写与身份证上一致的汉字姓名"
+                                required :rules="[{ required: true, message: '请填写姓名' }]"></van-field>
 
-                            <van-field
-                                v-model="areaDisplay"
-                                is-link
-                                readonly
-                                name="area"
-                                label="所属区域"
-                                placeholder="请选择省 / 市 / 区县"
-                                required
-                                @click="showAreaPopup = true"
-                                :rules="[{ required: true, message: '请选择所属区域' }]"
-                            ></van-field>
+                            <van-field v-model="areaDisplay" is-link readonly name="area" label="所属区域"
+                                placeholder="请选择省 / 市 / 区县" required @click="showAreaPopup = true"
+                                :rules="[{ required: true, message: '请选择所属区域' }]"></van-field>
 
-                            <van-field
-                                v-model.trim="formData.school"
-                                name="school"
-                                label="所在学校"
-                                placeholder="请填写完整学校名称"
-                                required
-                                :rules="[{ required: true, message: '请填写所在学校' }]"
-                            ></van-field>
+                            <van-field v-model.trim="formData.school" name="school" label="所在学校" placeholder="请填写完整学校名称"
+                                required :rules="[{ required: true, message: '请填写所在学校' }]"></van-field>
 
-                            <van-field
-                                v-model.trim="formData.idCard"
-                                name="idCard"
-                                label="身份证号"
-                                maxlength="18"
-                                placeholder="请填写18位身份证号"
-                                required
-                                :rules="[
+                            <van-field v-model.trim="formData.idCard" name="idCard" label="身份证号" maxlength="18"
+                                placeholder="" required :rules="[
                                     { required: true, message: '请填写身份证号' },
                                     { validator: validateIdCard, message: '请填写正确的身份证号' }
-                                ]"
-                            ></van-field>
+                                ]"></van-field>
 
-                            <van-field
-                                v-model.trim="formData.mobile"
-                                type="tel"
-                                name="mobile"
-                                label="手机号"
-                                maxlength="11"
-                                placeholder="请填写11位手机号"
-                                required
-                                :rules="[
+                            <van-field v-model.trim="formData.mobile" type="tel" name="mobile" label="手机号"
+                                maxlength="11" placeholder="" required :rules="[
                                     { required: true, message: '请填写手机号' },
                                     { pattern: /^1[3-9]\d{9}$/, message: '请填写正确的11位手机号' }
-                                ]"
-                            ></van-field>
+                                ]"></van-field>
 
-                            <van-field
-                                v-model.trim="formData.smsCode"
-                                name="smsCode"
-                                center
-                                clearable
-                                label="短信验证码"
-                                placeholder="请填写验证码"
-                                maxlength="6"
-                                required
-                                :rules="[{ required: true, message: '请填写短信验证码' }]"
-                            >
+                            <van-field v-model.trim="formData.smsCode" name="smsCode" center clearable label="短信验证码"
+                                placeholder="" maxlength="6" required
+                                :rules="[{ required: true, message: '请填写短信验证码' }]">
                                 <template #button>
-                                    <van-button
-                                        size="small"
-                                        type="primary"
-                                        round
-                                        :disabled="smsCounting"
-                                        @click.prevent="handleGetSms"
-                                    >
+                                    <van-button size="small" type="primary" round :disabled="smsCounting"
+                                        @click.prevent="handleGetSms">
                                         {{ smsBtnText }}
                                     </van-button>
                                 </template>
@@ -132,17 +79,13 @@
 
                         <!-- 所属区域选择弹层 -->
                         <van-popup v-model:show="showAreaPopup" position="bottom" round safe-area-inset-bottom>
-                            <van-picker
-                                title="选择所属区域"
-                                :columns="areaColumns"
-                                :model-value="selectedAreaValues"
-                                @confirm="onAreaConfirm"
-                                @cancel="showAreaPopup = false"
-                            ></van-picker>
+                            <van-picker title="选择所属区域" :columns="areaColumns" :model-value="selectedAreaValues"
+                                @confirm="onAreaConfirm" @cancel="showAreaPopup = false"></van-picker>
                         </van-popup>
 
                         <div class="form-actions-vant">
-                            <van-button round block type="primary" native-type="submit" size="large" class="btn-step-submit">
+                            <van-button round block type="primary" native-type="submit" size="large"
+                                class="btn-step-submit">
                                 下一步
                             </van-button>
                         </div>
@@ -152,165 +95,136 @@
                 <!-- 步骤2：获取账号信息 -->
                 <section class="step-content" :class="{ active: currentStep === 2 }" id="step2">
                     <div class="account-info">
-                        <van-notice-bar
-                            color="#00a86b"
-                            background="#eaf8f1"
-                            left-icon="passed"
-                            :scrollable="false"
-                            wrapable
-                            text="您的专属电脑端学习账号信息如下："
-                            class="step-notice-bar"
-                        ></van-notice-bar>
+                        <p class="info-tip">您的专属电脑端学习账号信息如下：</p>
                         <div class="info-box">
                             <p><strong>您的账号：</strong><span class="info-value">{{ formData.mobile || '18612312312' }}</span></p>
-                            <p><strong>您的密码：</strong><span class="info-value">123456</span><span class="info-note">（系统预置的统一初始密码）</span></p>
+                            <p><strong>您的密码：</strong><span class="info-value">xxxxxx</span><span class="info-note">（系统预置的统一初始密码）</span></p>
                         </div>
-                        <van-notice-bar
-                            color="#ed6a0c"
-                            background="#fffbe8"
-                            left-icon="warning-o"
-                            :scrollable="false"
-                            wrapable
-                            text="请务必妥善保存您的账号密码"
-                            class="step-notice-bar"
-                            style="margin-top: 16px;"
-                        ></van-notice-bar>
+                        <div class="warning-box">
+                            <div class="warning-icon">!</div>
+                            <p>请务必妥善保存您的账号密码</p>
+                        </div>
                     </div>
                     <div class="form-actions-vant">
-                        <van-button round type="primary" size="large" class="btn-step-submit" @click="goToStep(3)">下一步</van-button>
+                        <van-button round type="primary" size="large" class="btn-step-submit"
+                            @click="goToStep(3)">下一步</van-button>
                     </div>
                 </section>
 
-                <!-- 步骤3：绑定微信号 -->
+                <!-- 步骤3：选择课程班级 -->
                 <section class="step-content" :class="{ active: currentStep === 3 }" id="step3">
-                    <div class="wechat-bind">
-                        <p class="wechat-tip">请使用<span class="highlight">您本人常用</span>微信扫描下方二维码</p>
-                        <div class="qr-placeholder">
-                            <img src="style/img/qrcode.png" alt="公众号授权二维码">
+                    <van-notice-bar color="#555" background="#f0faf5" :scrollable="false" wrapable
+                        class="class-notice step-notice-bar" style="margin-bottom: 20px;">
+                        <template #left-icon>
+                            <span class="notice-icon">i</span>
+                        </template>
+                        仅显示您所在省份可报名的班级，各期次/班级课程内容相同，请按您自己的时间安排，选择其中一个班级即可
+                    </van-notice-bar>
+                    <!-- 未选期次：展示期次图片列表 -->
+                    <div v-if="!showClassList" class="period-select-view">
+                        <h3 class="section-subtitle">点击下方图片选择一个期次</h3>
+                        <div class="period-list">
+                            <div v-for="period in periodList" :key="period.id" class="period-card"
+                                :class="{ active: selectedPeriodId === period.id }" @click="selectPeriod(period)">
+                                <div class="period-thumb"><img src="style/img/p01.jpg" :alt="period.name"></div>
+                                <p class="period-name">{{ period.name }}</p>
+                                <p class="period-date">{{ period.date }}</p>
+                            </div>
                         </div>
-                        <p class="wechat-desc">扫描绑定后，可自由切换微信和电脑学习课程</p>
                     </div>
-                    <div class="form-actions-vant">
-                        <van-button round type="primary" size="large" class="btn-step-submit" @click="goToStep(4)">已扫码，下一步</van-button>
+
+                    <!-- 已选期次：展示返回期次列表与该期次班级表格 -->
+                    <div v-else class="period-classes-view">
+                        <div class="period-classes-bar">
+                            <span class="btn-back-period" @click="showClassList = false">
+                                《 返回期次列表
+                            </span>
+                            <span class="period-bar-name">期次名称：{{ selectedPeriodName }}</span>
+                        </div>
+                        <div class="class-table-wrap">
+                            <table class="class-table">
+                                <thead>
+                                    <tr>
+                                        <th>班级</th>
+                                        <th>开课时间</th>
+                                        <th>已报人数</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="c in currentClassList" :key="c.name">
+                                        <td>{{ c.name }}</td>
+                                        <td>{{ c.date }}</td>
+                                        <td>{{ c.enrolled }}/{{ c.capacity }}</td>
+                                        <td>
+                                            <van-button v-if="c.enrolled >= c.capacity" disabled round size="small"
+                                                class="btn-table-action btn-class-full">名额已满</van-button>
+                                            <van-button v-else type="primary" size="small" round
+                                                class="btn-table-action" @click="handleApplyClass(c)">我要报名</van-button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </section>
 
-                <!-- 步骤4：选择课程班级 -->
+                <!-- 步骤4：添加班主任 -->
                 <section class="step-content" :class="{ active: currentStep === 4 }" id="step4">
-                    <van-notice-bar
-                        color="#1989fa"
-                        background="#ecf9ff"
-                        left-icon="info-o"
-                        :scrollable="false"
-                        wrapable
-                        text="仅显示您所在省份可报名的班级，各期次/班级课程内容相同，请按您自己的时间安排，选择其中一个班级即可"
-                        class="step-notice-bar"
-                        style="margin-bottom: 20px;"
-                    ></van-notice-bar>
-                    <h3 class="section-subtitle">点击下方图片选择一个期次</h3>
-                    <div class="period-list">
-                        <div 
-                            v-for="period in periodList" 
-                            :key="period.id" 
-                            class="period-card" 
-                            :class="{ active: selectedPeriodId === period.id }" 
-                            @click="selectPeriod(period)"
-                        >
-                            <div class="period-thumb"><img src="style/img/p01.jpg" :alt="period.name"></div>
-                            <p class="period-name">{{ period.name }}</p>
-                            <p class="period-date">{{ period.date }}</p>
-                        </div>
-                    </div>
-                    <div class="class-table-wrap">
-                        <table class="class-table">
-                            <thead>
-                                <tr>
-                                    <th>班级</th>
-                                    <th>开课时间</th>
-                                    <th>已报人数</th>
-                                    <th>操作</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="c in currentClassList" :key="c.name">
-                                    <td>{{ c.name }}</td>
-                                    <td>{{ c.date }}</td>
-                                    <td>{{ c.enrolled }}/{{ c.capacity }}</td>
-                                    <td>
-                                        <van-tag v-if="c.enrolled >= c.capacity" type="danger" round size="medium">名额已满</van-tag>
-                                        <van-button v-else type="primary" size="small" round @click="handleApplyClass(c)">我要报名</van-button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </section>
-
-                <!-- 步骤5：添加班主任 -->
-                <section class="step-content" :class="{ active: currentStep === 5 }" id="step5">
                     <div class="teacher-qrcode">
-                        <p class="teacher-qrcode-tip">请使用微信扫描下方二维码添加班主任</p>
+                        <p class="teacher-qrcode-tip">长按识别下方二维码添加班主任</p>
                         <div class="teacher-qrcode-img">
                             <img src="style/img/qrcode.png" alt="班主任微信二维码">
                         </div>
-                        <van-notice-bar
-                            color="#ed6a0c"
-                            background="#fffbe8"
-                            left-icon="warning-o"
-                            :scrollable="false"
-                            wrapable
-                            text="请及时添加班主任微信，以免错过重要学习内容"
-                            class="step-notice-bar"
-                            style="margin-top: 16px;"
-                        ></van-notice-bar>
+                        <van-notice-bar color="#ed6a0c" background="#fffbe8" left-icon="warning-o" :scrollable="false"
+                            wrapable text="请及时添加班主任微信，以免错过重要学习内容" class="step-notice-bar"
+                            style="margin-top: 16px;"></van-notice-bar>
                     </div>
                     <div class="form-actions-vant">
-                        <van-button round type="primary" size="large" class="btn-step-submit" @click="goToStep(6)">下一步</van-button>
+                        <van-button round type="primary" size="large" class="btn-step-submit"
+                            @click="goToStep(5)">下一步</van-button>
                     </div>
                 </section>
 
-                <!-- 步骤6：完成报名 -->
-                <section class="step-content" :class="{ active: currentStep === 6 }" id="step6">
-                    <div class="enroll-list">
-                        <div class="enroll-result">
-                            <div class="result-cover">
-                                <img src="style/img/p01.jpg" alt="期次封面图">
+                <!-- 步骤5：完成报名 -->
+                <section class="step-content" :class="{ active: currentStep === 5 }" id="step5">
+                    <div class="enroll-finish-wrapper">
+                        <!-- 课程班级标题 -->
+                        <h3 class="enroll-finish-title">
+                            “童语同音”学前儿童普通话师资培训<br>
+                            <span class="enroll-finish-class">{{ selectedPeriodName }} {{ selectedClassName }}</span>
+                        </h3>
+
+                        <!-- 课程时间 -->
+                        <div class="enroll-finish-meta">
+                            <p>开课时间：{{ selectedClassDateRange.split('至')[0] || '2026-03-01' }}</p>
+                            <p>结课时间：{{ selectedClassDateRange.split('至')[1] || '2026-03-31' }}</p>
+                        </div>
+
+                        <!-- 班主任二维码 -->
+                        <div class="enroll-qr-section">
+                            <p class="enroll-qr-tip">长按二维码 添加班主任</p>
+                            <div class="enroll-qr-box">
+                                <img src="style/img/qrcode.png" alt="班主任微信二维码">
                             </div>
-                            <div class="result-info">
-                                <h3 class="result-title">“童语同音”学前儿童普通话师资培训 <span class="result-class">| {{ selectedPeriodName }} {{ selectedClassName }}</span></h3>
-                                <div class="result-meta">
-                                    <span>开课时间：{{ selectedClassDateRange.split('至')[0] || '2026-03-01' }}</span>
-                                    <span>结课时间：{{ selectedClassDateRange.split('至')[1] || '2026-03-31' }}</span>
-                                </div>
-                                <div class="result-qrcode-list">
-                                    <div class="result-qrcode-item">
-                                        <div class="qrcode-img">
-                                            <img src="style/img/qrcode.png" alt="班主任微信二维码">
-                                        </div>
-                                        <p>微信扫码添加班主任微信</p>
-                                    </div>
-                                    <div class="result-qrcode-item">
-                                        <div class="qrcode-img">
-                                            <img src="style/img/qrcode.png" alt="公众号二维码">
-                                        </div>
-                                        <p>关注<br>“泛在云课堂”微信公众号<br>使用手机同步学习</p>
-                                    </div>
-                                </div>
+                            <p class="enroll-qr-subtip">以免错过重要学习内容</p>
+                        </div>
+
+                        <!-- 公众号二维码 -->
+                        <div class="enroll-qr-section">
+                            <p class="enroll-qr-tip">长按二维码 关注泛在云课堂微信公众号</p>
+                            <div class="enroll-qr-box">
+                                <img src="style/img/qrcode.png" alt="公众号二维码">
                             </div>
+                            <p class="enroll-qr-subtip">使用手机进行学习</p>
                         </div>
                     </div>
-                    <div class="form-actions-vant">
-                        <van-button
-                            round
-                            type="primary"
-                            size="large"
-                            icon="notes-o"
-                            class="btn-step-submit"
-                            url="plan.html"
-                        >
+                    <!-- <div class="form-actions-vant">
+                        <van-button round type="primary" size="large" icon="notes-o" class="btn-step-submit"
+                            url="plan.html">
                             进入课程学习计划表
                         </van-button>
-                    </div>
+                    </div> -->
                 </section>
             </div>
         </main>
@@ -338,31 +252,29 @@
                     '',
                     '第一步：填写基本信息',
                     '第二步：获取账号信息',
-                    '第三步：绑定微信号',
-                    '第四步：选择课程班级',
-                    '第五步：添加班主任',
-                    '第六步：完成报名'
+                    '第三步：选择课程班级',
+                    '第四步：添加班主任',
+                    '第五步：完成报名'
                 ];
 
                 const steps = [
                     { num: 1, label: '填写基本信息' },
                     { num: 2, label: '获取账号信息' },
-                    { num: 3, label: '绑定微信号' },
-                    { num: 4, label: '选择课程班级' },
-                    { num: 5, label: '添加班主任' },
-                    { num: 6, label: '完成报名' }
+                    { num: 3, label: '选择课程班级' },
+                    { num: 4, label: '添加班主任' },
+                    { num: 5, label: '完成报名' }
                 ];
 
-                // 表单数据
+                // 表单数据（除所属区域外，默认预填示例初始值）
                 const formData = reactive({
-                    name: '张三',
-                    province: '北京市',
-                    city: '北京市',
-                    district: '海淀区',
-                    school: '实验第一幼儿园',
-                    idCard: '110108199508081234',
-                    mobile: '18612312312',
-                    smsCode: '123456'
+                    name: '',
+                    province: '',
+                    city: '',
+                    district: '',
+                    school: '',
+                    idCard: '',
+                    mobile: '',
+                    smsCode: ''
                 });
 
                 // 省市区联动数据
@@ -522,8 +434,11 @@
                 const selectedClassName = ref('六班');
                 const selectedClassDateRange = ref('2026-03-05至2026-04-05');
 
+                const showClassList = ref(false);
+
                 const selectPeriod = (period) => {
                     selectedPeriodId.value = period.id;
+                    showClassList.value = true;
                 };
 
                 const scrollToStep = (stepNum) => {
@@ -602,8 +517,8 @@
                         selectedClassName.value = classItem.name;
                         selectedClassDateRange.value = classItem.date;
                         showSuccessToast('班级选择成功');
-                        goToStep(5);
-                    }).catch(() => {});
+                        goToStep(4);
+                    }).catch(() => { });
                 };
 
                 return {
@@ -633,6 +548,7 @@
                     currentClassList,
                     selectedClassName,
                     selectedClassDateRange,
+                    showClassList,
                     selectPeriod,
                     goToStep,
                     handleStepClick,

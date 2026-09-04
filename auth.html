@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>微信登录授权 - 泛在云课堂</title>
+    <meta name="viewport"
+        content="width=device-width,minimum-scale=1,maximum-scale=1,initial-scale=1,user-scalable=no" />
+    <meta name="description" content="“童语同音”学前儿童普通话师资培训移动端平台 - 微信登录授权">
+    <link href="style/index.css" rel="stylesheet" type="text/css">
+    <link href="style/common.scss" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <div id="app" v-cloak class="auth-page">
+        <div class="auth-container">
+            <!-- 顶部 Logo 图标 -->
+            <div class="auth-logo-wrap">
+                <img src="style/img/fz.png" alt="泛在云课堂" class="auth-logo-img">
+            </div>
+
+            <!-- 主标题 -->
+            <h1 class="auth-title">欢迎进入泛在云课堂</h1>
+
+            <!-- 说明文案 -->
+            <p class="auth-desc">
+                为了给您提供更换的服务，需要您授权获取您的昵称、头像等信息，请您点击下方的“立即授权”按钮
+            </p>
+
+            <!-- 提示文案 -->
+            <p class="auth-tip">
+                请使用<span class="highlight">您本人常用</span>微信进行授权，以免影响后续学习
+            </p>
+
+            <!-- 立即授权按钮 (和“开始报名”保持一致的暖金立体胶囊风格) -->
+            <van-button 
+                round 
+                block 
+                class="btn-auth-submit" 
+                :loading="authorizing"
+                loading-text="正在授权..."
+                @click="handleAuth"
+            >
+                <span class="btn-auth-text">立即授权</span>
+            </van-button>
+        </div>
+    </div>
+
+    <script src="style/vue.js"></script>
+    <script src="style/vant.min.js"></script>
+    <script>
+        const { createApp, ref } = Vue;
+        const app = createApp({
+            setup() {
+                const authorizing = ref(false);
+
+                const handleAuth = () => {
+                    authorizing.value = true;
+                    vant.showToast({
+                        type: 'loading',
+                        message: '授权中...',
+                        forbidClick: true,
+                        duration: 600
+                    });
+
+                    setTimeout(() => {
+                        authorizing.value = false;
+                        vant.showToast({
+                            type: 'success',
+                            message: '授权成功',
+                            duration: 500
+                        });
+                        setTimeout(() => {
+                            window.location.href = 'index.html';
+                        }, 500);
+                    }, 600);
+                };
+
+                return {
+                    authorizing,
+                    handleAuth
+                };
+            }
+        });
+        app.use(vant);
+        app.mount('#app');
+    </script>
+</body>
+
+</html>
